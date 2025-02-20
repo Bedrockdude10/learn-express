@@ -70,6 +70,17 @@ app.get('/read/usernames', (req: UserRequest, res: Response) => {
   res.send(usernames);
 });
 
+app.get('/read/username/:name', (req: UserRequest, res: Response) => {
+  const { name } = req.params;
+  const user = req.users?.find(user => user.username === name);
+
+  if (user) {
+      res.json({ email: user.email });
+  } else {
+      res.status(404).json({ error: 'User not found' });
+  }
+});
+
 // a middleware function that parses the request body to json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
