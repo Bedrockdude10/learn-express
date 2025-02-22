@@ -70,6 +70,7 @@ app.get('/read/usernames', (req: UserRequest, res: Response) => {
   res.send(usernames);
 });
 
+// route to search for a user by username
 app.get('/read/username/:name', (req: UserRequest, res: Response) => {
   const { name } = req.params;
   const user = req.users?.find(user => user.username === name);
