@@ -71,14 +71,14 @@ app.get('/read/usernames', (req: UserRequest, res: Response) => {
 });
 
 // route to search for a user by username
-app.get('/read/username/:name', (req: UserRequest, res: Response) => {
+app.get('/read/username/:name', (req: Request, res: Response) => {
   const { name } = req.params;
-  const user = req.users?.find(user => user.username === name);
+  const user = users.find(user => user.username === name);
 
   if (user) {
-      res.json({ email: user.email });
+    res.json([{ id: user.id, email: user.email }]); // Returns an array
   } else {
-      res.status(404).json({ error: 'User not found' });
+    res.json([{ id: 'error', email: 'Not Found' }]); // Returns an array even if no user is found
   }
 });
 
